@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Collections — HRIPIN</title>
+
+<style>
+
+:root{
+  --cream:#f8f5ed;
+  --paper:#fffdf8;
+  --ink:#26342d;
+  --muted:#718078;
+  --sage:#a9b9a5;
+  --sage-dark:#5f7565;
+  --clay:#c98568;
+  --line:#e4e5dc;
+  --shadow:0 18px 50px rgba(48,63,53,.10);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  line-height:1.6;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button{
+  font:inherit;
+  cursor:pointer;
+}
+
+/* =========================
+   ANNOUNCEMENT
+========================= */
+
+.announcement{
+  background:var(--ink);
+  color:white;
+  text-align:center;
+  padding:9px 15px;
+  font-size:12px;
+  letter-spacing:.08em;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:rgba(248,245,237,.94);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+
+.nav{
+  max-width:1200px;
+  height:76px;
+  margin:auto;
+  padding:0 24px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:800;
+  letter-spacing:.18em;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:30px;
+  font-size:14px;
+}
+
+.nav-links a{
+  transition:.25s ease;
+}
+
+.nav-links a:hover{
+  color:var(--clay);
+}
+
+.nav-actions{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.icon-btn{
+  width:42px;
+  height:42px;
+
+  border:1px solid var(--line);
+  background:var(--paper);
+  border-radius:50%;
+
+  display:grid;
+  place-items:center;
+
+  transition:.25s ease;
+}
+
+.icon-btn:hover{
+  transform:translateY(-2px);
+  border-color:var(--sage);
+}
+
+.mobile-menu-btn{
+  display:none;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  max-width:1200px;
+  margin:auto;
+  padding:105px 24px 85px;
+  text-align:center;
+}
+
+.eyebrow{
+  color:var(--sage-dark);
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  font-size:12px;
+  margin-bottom:16px;
+}
+
+.hero h1{
+  font-family:Georgia,serif;
+  font-weight:400;
+  font-size:clamp(55px,8vw,92px);
+  line-height:.95;
+  margin-bottom:25px;
+}
+
+.hero p{
+  max-width:610px;
+  margin:auto;
+  color:var(--muted);
+  font-size:16px;
+}
+
+/* =========================
+   COLLECTION GRID
+========================= */
+
+.collections{
+  max-width:1200px;
+  margin:auto;
+  padding:0 24px 100px;
+}
+
+.collection-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:25px;
+}
+
+.collection-card{
+  position:relative;
+  min-height:470px;
+
+  border-radius:28px;
+  overflow:hidden;
+
+  display:flex;
+  align-items:flex-end;
+
+  border:1px solid var(--line);
+
+  transition:.4s ease;
+}
+
+.collection-card:hover{
+  transform:translateY(-7px);
+  box-shadow:var(--shadow);
+}
+
+.collection-art{
+  position:absolute;
+  inset:0;
+
+  transition:.5s ease;
+}
+
+.collection-card:hover .collection-art{
+  transform:scale(1.04);
+}
+
+/* Saree */
+
+.saree-art{
+  background:
+    radial-gradient(circle at 20% 30%,#d9e2d2 0 14%,transparent 15%),
+    radial-gradient(circle at 75% 65%,#cf8c70 0 16%,transparent 17%),
+    radial-gradient(circle at 65% 20%,#a9b9a5 0 12%,transparent 13%),
+    linear-gradient(135deg,#edf0df,#b7c7b1);
+}
+
+/* Dress */
+
+.dress-art{
+  background:
+    radial-gradient(circle at 75% 25%,#dfb79d 0 19%,transparent 20%),
+    radial-gradient(circle at 25% 75%,#9eaf99 0 16%,transparent 17%),
+    linear-gradient(135deg,#ead8ca,#f4e9dd);
+}
+
+/* Shawl */
+
+.shawl-art{
+  background:
+    radial-gradient(circle at 25% 65%,#d7c49d 0 18%,transparent 19%),
+    radial-gradient(circle at 75% 25%,#9cad99 0 17%,transparent 18%),
+    linear-gradient(135deg,#dce2d8,#b8c5ba);
+}
+
+/* Home */
+
+.home-art{
+  background:
+    radial-gradient(circle at 50% 28%,#d99a72 0 20%,transparent 21%),
+    radial-gradient(circle at 22% 72%,#b8c5a6 0 15%,transparent 16%),
+    linear-gradient(135deg,#eadcc3,#d0b78d);
+}
+
+/* Decorative shapes */
+
+.collection-card::before{
+  content:"";
+  position:absolute;
+
+  width:220px;
+  height:330px;
+
+  left:50%;
+  top:42%;
+
+  transform:translate(-50%,-50%) rotate(-5deg);
+
+  border-radius:45% 45% 15% 15%;
+
+  background:rgba(255,255,255,.38);
+
+  border:2px solid rgba(255,255,255,.55);
+
+  box-shadow:0 25px 50px rgba(45,55,48,.12);
+
+  z-index:1;
+}
+
+.collection-card.home-card::before{
+  width:230px;
+  height:170px;
+  border-radius:20px 20px 40px 40px;
+  transform:translate(-50%,-50%);
+}
+
+.collection-card.shawl-card::before{
+  width:330px;
+  height:190px;
+  border-radius:12px;
+  transform:translate(-50%,-50%) rotate(-8deg);
+}
+
+/* Overlay */
+
+.collection-overlay{
+  position:absolute;
+  inset:0;
+
+  background:linear-gradient(
+    to top,
+    rgba(30,43,35,.72),
+    rgba(30,43,35,.02) 65%
+  );
+
+  z-index:2;
+}
+
+/* Content */
+
+.collection-content{
+  position:relative;
+  z-index:3;
+
+  padding:30px;
+  color:white;
+  width:100%;
+}
+
+.collection-label{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  opacity:.85;
+  margin-bottom:8px;
+}
+
+.collection-content h2{
+  font-family:Georgia,serif;
+  font-size:38px;
+  font-weight:400;
+  margin-bottom:8px;
+}
+
+.collection-content p{
+  max-width:420px;
+  color:rgba(255,255,255,.82);
+  font-size:14px;
+  margin-bottom:20px;
+}
+
+.collection-link{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+
+  padding:11px 17px;
+
+  border-radius:50px;
+
+  background:white;
+  color:var(--ink);
+
+  font-size:12px;
+
+  transition:.25s ease;
+}
+
+.collection-link:hover{
+  background:var(--clay);
+  color:white;
+}
+
+/* =========================
+   INTRO
+========================= */
+
+.intro{
+  max-width:1200px;
+  margin:auto;
+
+  padding:0 24px 90px;
+
+  text-align:center;
+}
+
+.intro-box{
+  background:#e8ede2;
+  border-radius:30px;
+  padding:65px 25px;
+}
+
+.intro h2{
+  font-family:Georgia,serif;
+  font-size:42px;
+  font-weight:400;
+  margin-bottom:15px;
+}
+
+.intro p{
+  max-width:650px;
+  margin:auto;
+  color:var(--muted);
+}
+
+/* =========================
+   FEATURED
+========================= */
+
+.featured{
+  max-width:1200px;
+  margin:auto;
+
+  padding:0 24px 110px;
+}
+
+.section-heading{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:20px;
+  margin-bottom:30px;
+}
+
+.section-heading h2{
+  font-family:Georgia,serif;
+  font-size:42px;
+  font-weight:400;
+}
+
+.section-heading a{
+  color:var(--sage-dark);
+  font-size:14px;
+}
+
+.featured-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+.product{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:20px;
+  overflow:hidden;
+  transition:.35s ease;
+}
+
+.product:hover{
+  transform:translateY(-6px);
+  box-shadow:var(--shadow);
+}
+
+.product-image{
+  height:260px;
+  display:grid;
+  place-items:center;
+  position:relative;
+}
+
+.product-image::before{
+  content:"";
+  width:55%;
+  height:70%;
+  border-radius:45% 45% 15% 15%;
+  background:rgba(255,255,255,.4);
+  border:2px solid rgba(255,255,255,.5);
+  transform:rotate(-5deg);
+}
+
+.product.saree .product-image{
+  background:linear-gradient(135deg,#dce5d6,#b6c7b0);
+}
+
+.product.dress .product-image{
+  background:linear-gradient(135deg,#edd8c9,#d7b49c);
+}
+
+.product.shawl .product-image{
+  background:linear-gradient(135deg,#dfe4db,#aebbaf);
+}
+
+.product.basket .product-image{
+  background:linear-gradient(135deg,#e8d8bc,#cfae7e);
+}
+
+.product-info{
+  padding:18px;
+}
+
+.product-info small{
+  color:var(--sage-dark);
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  font-size:10px;
+}
+
+.product-info h3{
+  font-family:Georgia,serif;
+  font-size:19px;
+  font-weight:400;
+  margin:6px 0;
+}
+
+.product-info span{
+  font-weight:700;
+  font-size:14px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  background:var(--ink);
+  color:white;
+  padding:60px 24px 30px;
+}
+
+.footer-inner{
+  max-width:1200px;
+  margin:auto;
+}
+
+.footer-top{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:40px;
+  padding-bottom:45px;
+}
+
+.footer-brand h2{
+  font-size:25px;
+  letter-spacing:.18em;
+  margin-bottom:12px;
+}
+
+.footer-brand p{
+  max-width:350px;
+  color:#bdc6bf;
+  font-size:14px;
+}
+
+.footer-col h4{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  margin-bottom:15px;
+}
+
+.footer-col a,
+.footer-col span{
+  display:block;
+  color:#bdc6bf;
+  font-size:14px;
+  margin:8px 0;
+}
+
+.footer-bottom{
+  padding-top:25px;
+  border-top:1px solid rgba(255,255,255,.13);
+
+  color:#9fa9a1;
+  font-size:12px;
+
+  display:flex;
+  justify-content:space-between;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:950px){
+
+  .nav-links{
+    display:none;
+  }
+
+  .mobile-menu-btn{
+    display:grid;
+  }
+
+  .featured-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .footer-top{
+    grid-template-columns:2fr 1fr 1fr;
+  }
+
+  .footer-brand{
+    grid-column:1/-1;
+  }
+
+}
+
+@media(max-width:650px){
+
+  .nav{
+    height:66px;
+    padding:0 16px;
+  }
+
+  .logo{
+    font-size:21px;
+  }
+
+  .hero{
+    padding:70px 20px 60px;
+  }
+
+  .hero h1{
+    font-size:55px;
+  }
+
+  .collection-grid{
+    grid-template-columns:1fr;
+  }
+
+  .collection-card{
+    min-height:400px;
+  }
+
+  .collection-content{
+    padding:23px;
+  }
+
+  .collection-content h2{
+    font-size:32px;
+  }
+
+  .collections,
+  .intro,
+  .featured{
+    padding-left:15px;
+    padding-right:15px;
+  }
+
+  .featured-grid{
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+
+  .product-image{
+    height:210px;
+  }
+
+  .product-info{
+    padding:14px;
+  }
+
+  .product-info h3{
+    font-size:16px;
+  }
+
+  .section-heading h2{
+    font-size:32px;
+  }
+
+  .footer-top{
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+  }
+
+  .footer-brand{
+    grid-column:1/-1;
+  }
+
+  .footer-bottom{
+    flex-direction:column;
+    gap:8px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     ANNOUNCEMENT
+========================= -->
+
+<div class="announcement">
+  Free U.S. shipping on orders over $150 · Handmade with care
+</div>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+  <div class="nav">
+
+    <a href="index.html" class="logo">
+      HRIPIN
+    </a>
+
+    <nav class="nav-links">
+
+      <a href="index.html">Home</a>
+
+      <a href="shop.html">Shop</a>
+
+      <a href="collections.html">Collections</a>
+
+      <a href="#">Our Story</a>
+
+      <a href="#">Gallery</a>
+
+      <a href="#">Contact</a>
+
+    </nav>
+
+    <div class="nav-actions">
+
+      <button
+        class="icon-btn mobile-menu-btn"
+        onclick="toggleMenu()"
+      >
+        ☰
+      </button>
+
+      <a
+        href="shop.html"
+        class="icon-btn"
+        aria-label="Shop"
+      >
+        🛍
+      </a>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- =========================
+     MOBILE MENU
+========================= -->
+
+<div
+  id="mobileMenu"
+  style="
+  display:none;
+  position:fixed;
+  top:66px;
+  left:0;
+  right:0;
+  z-index:999;
+  background:#fffdf8;
+  border-bottom:1px solid #e4e5dc;
+  padding:20px;
+  "
+>
+
+  <a href="index.html"
+     style="display:block;padding:12px 0;">
+    Home
+  </a>
+
+  <a href="shop.html"
+     style="display:block;padding:12px 0;">
+    Shop
+  </a>
+
+  <a href="collections.html"
+     style="display:block;padding:12px 0;">
+    Collections
+  </a>
+
+  <a href="#"
+     style="display:block;padding:12px 0;">
+    Our Story
+  </a>
+
+  <a href="#"
+     style="display:block;padding:12px 0;">
+    Gallery
+  </a>
+
+  <a href="#"
+     style="display:block;padding:12px 0;">
+    Contact
+  </a>
+
+</div>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+  <div class="eyebrow">
+    Explore HRIPIN
+  </div>
+
+  <h1>
+    Little worlds,<br>
+    made by hand.
+  </h1>
+
+  <p>
+    Explore our collections of hand-painted clothing
+    and naturally handcrafted pieces, created to bring
+    a little more beauty into everyday life.
+  </p>
+
+</section>
+
+
+<!-- =========================
+     COLLECTIONS
+========================= -->
+
+<section class="collections">
+
+  <div class="collection-grid">
+
+
+    <!-- SAREES -->
+
+    <article class="collection-card">
+
+      <div class="collection-art saree-art"></div>
+
+      <div class="collection-overlay"></div>
+
+      <div class="collection-content">
+
+        <div class="collection-label">
+          Collection 01
+        </div>
+
+        <h2>
+          Hand-Painted Sarees
+        </h2>
+
+        <p>
+          Flowing fabrics brought to life with
+          botanical shapes, playful colors, and
+          thoughtful hand-painted details.
+        </p>
+
+        <a
+          href="shop.html"
+          class="collection-link"
+        >
+          Explore Sarees →
+        </a>
+
+      </div>
+
+    </article>
+
+
+    <!-- DRESSES -->
+
+    <article class="collection-card">
+
+      <div class="collection-art dress-art"></div>
+
+      <div class="collection-overlay"></div>
+
+      <div class="collection-content">
+
+        <div class="collection-label">
+          Collection 02
+        </div>
+
+        <h2>
+          Painted Dresses
+        </h2>
+
+        <p>
+          Comfortable everyday silhouettes decorated
+          with small pieces of hand-painted artwork.
+        </p>
+
+        <a
+          href="shop.html"
+          class="collection-link"
+        >
+          Explore Dresses →
+        </a>
+
+      </div>
+
+    </article>
+
+
+    <!-- SHAWLS -->
+
+    <article class="collection-card shawl-card">
+
+      <div class="collection-art shawl-art"></div>
+
+      <div class="collection-overlay"></div>
+
+      <div class="collection-content">
+
+        <div class="collection-label">
+          Collection 03
+        </div>
+
+        <h2>
+          Soft Shawls
+        </h2>
+
+        <p>
+          Warm, gentle layers made from natural
+          fibers and finished with artistic details.
+        </p>
+
+        <a
+          href="shop.html"
+          class="collection-link"
+        >
+          Explore Shawls →
+        </a>
+
+      </div>
+
+    </article>
+
+
+    <!-- HOME -->
+
+    <article class="collection-card home-card">
+
+      <div class="collection-art home-art"></div>
+
+      <div class="collection-overlay"></div>
+
+      <div class="collection-content">
+
+        <div class="collection-label">
+          Collection 04
+        </div>
+
+        <h2>
+          Home & Living
+        </h2>
+
+        <p>
+          Natural jute, woven textures, and simple
+          handcrafted objects for your everyday spaces.
+        </p>
+
+        <a
+          href="shop.html"
+          class="collection-link"
+        >
+          Explore Home →
+        </a>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     INTRO
+========================= -->
+
+<section class="intro">
+
+  <div class="intro-box">
+
+    <div class="eyebrow">
+      Made with intention
+    </div>
+
+    <h2>
+      Nothing too perfect.
+    </h2>
+
+    <p>
+      At HRIPIN, the little differences are part of the beauty.
+      Every brushstroke, woven fiber, and handmade detail gives
+      each piece its own character.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     FEATURED PRODUCTS
+========================= -->
+
+<section class="featured">
+
+  <div class="section-heading">
+
+    <h2>
+      From the collections
+    </h2>
+
+    <a href="shop.html">
+      View all pieces →
+    </a>
+
+  </div>
+
+
+  <div class="featured-grid">
+
+
+    <!-- PRODUCT 1 -->
+
+    <article class="product saree">
+
+      <a href="shop.html">
+
+        <div class="product-image"></div>
+
+        <div class="product-info">
+
+          <small>
+            Silk Blend
+          </small>
+
+          <h3>
+            Meadow Bloom Saree
+          </h3>
+
+          <span>
+            $129
+          </span>
+
+        </div>
+
+      </a>
+
+    </article>
+
+
+    <!-- PRODUCT 2 -->
+
+    <article class="product dress">
+
+      <a href="shop.html">
+
+        <div class="product-image"></div>
+
+        <div class="product-info">
+
+          <small>
+            Cotton
+          </small>
+
+          <h3>
+            Terracotta Garden Dress
+          </h3>
+
+          <span>
+            $98
+          </span>
+
+        </div>
+
+      </a>
+
+    </article>
+
+
+    <!-- PRODUCT 3 -->
+
+    <article class="product shawl">
+
+      <a href="shop.html">
+
+        <div class="product-image"></div>
+
+        <div class="product-info">
+
+          <small>
+            Wool
+          </small>
+
+          <h3>
+            Quiet Morning Shawl
+          </h3>
+
+          <span>
+            $76
+          </span>
+
+        </div>
+
+      </a>
+
+    </article>
+
+
+    <!-- PRODUCT 4 -->
+
+    <article class="product basket">
+
+      <a href="shop.html">
+
+        <div class="product-image"></div>
+
+        <div class="product-info">
+
+          <small>
+            Natural Jute
+          </small>
+
+          <h3>
+            Sunset Jute Basket
+          </h3>
+
+          <span>
+            $44
+          </span>
+
+        </div>
+
+      </a>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+  <div class="footer-inner">
+
+    <div class="footer-top">
+
+      <div class="footer-brand">
+
+        <h2>
+          HRIPIN
+        </h2>
+
+        <p>
+          Small pieces of handmade joy,
+          created slowly and thoughtfully
+          for everyday life.
+        </p>
+
+      </div>
+
+
+      <div class="footer-col">
+
+        <h4>
+          Explore
+        </h4>
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="shop.html">
+          Shop
+        </a>
+
+        <a href="collections.html">
+          Collections
+        </a>
+
+        <span>
+          Our Story
+        </span>
+
+      </div>
+
+
+      <div class="footer-col">
+
+        <h4>
+          Help
+        </h4>
+
+        <span>
+          Shipping
+        </span>
+
+        <span>
+          Returns
+        </span>
+
+        <span>
+          Contact
+        </span>
+
+      </div>
+
+
+      <div class="footer-col">
+
+        <h4>
+          Follow
+        </h4>
+
+        <span>
+          Instagram
+        </span>
+
+        <span>
+          Facebook
+        </span>
+
+        <span>
+          Pinterest
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <span>
+        © 2026 HRIPIN. All rights reserved.
+      </span>
+
+      <span>
+        Made with care.
+      </span>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+<script>
+
+function toggleMenu(){
+
+  const menu =
+    document.getElementById("mobileMenu");
+
+  if(menu.style.display === "block"){
+
+    menu.style.display = "none";
+
+  }else{
+
+    menu.style.display = "block";
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>

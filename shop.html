@@ -1,0 +1,1908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop — HRIPIN</title>
+
+<style>
+:root{
+  --cream:#f8f5ed;
+  --paper:#fffdf8;
+  --ink:#26342d;
+  --muted:#718078;
+  --sage:#a9b9a5;
+  --sage-dark:#5f7565;
+  --clay:#c98568;
+  --line:#e4e5dc;
+  --shadow:0 16px 45px rgba(48,63,53,.09);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:Arial, Helvetica, sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  line-height:1.6;
+}
+
+button,
+input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+/* Announcement */
+
+.announcement{
+  background:var(--ink);
+  color:#fff;
+  text-align:center;
+  padding:9px 15px;
+  font-size:12px;
+  letter-spacing:.08em;
+}
+
+/* Header */
+
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:rgba(248,245,237,.94);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+
+.nav{
+  max-width:1200px;
+  margin:auto;
+  height:76px;
+  padding:0 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:800;
+  letter-spacing:.18em;
+}
+
+.nav-links{
+  display:flex;
+  gap:30px;
+  align-items:center;
+  font-size:14px;
+}
+
+.nav-links a{
+  transition:.25s ease;
+}
+
+.nav-links a:hover{
+  color:var(--clay);
+}
+
+.nav-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.icon-btn{
+  width:42px;
+  height:42px;
+  border:1px solid var(--line);
+  background:var(--paper);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  position:relative;
+  transition:.25s ease;
+}
+
+.icon-btn:hover{
+  transform:translateY(-2px);
+  border-color:var(--sage);
+}
+
+.cart-count{
+  position:absolute;
+  right:-3px;
+  top:-3px;
+  min-width:18px;
+  height:18px;
+  padding:0 4px;
+  border-radius:20px;
+  background:var(--clay);
+  color:white;
+  font-size:10px;
+  display:grid;
+  place-items:center;
+}
+
+.mobile-menu-btn{
+  display:none;
+}
+
+/* Hero */
+
+.shop-hero{
+  max-width:1200px;
+  margin:auto;
+  padding:90px 24px 55px;
+  text-align:center;
+}
+
+.shop-hero .eyebrow{
+  color:var(--sage-dark);
+  font-size:12px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  margin-bottom:14px;
+}
+
+.shop-hero h1{
+  font-family:Georgia, serif;
+  font-size:clamp(48px,7vw,82px);
+  font-weight:400;
+  line-height:1;
+  margin-bottom:20px;
+}
+
+.shop-hero p{
+  max-width:600px;
+  margin:auto;
+  color:var(--muted);
+  font-size:16px;
+}
+
+/* Shop controls */
+
+.shop-controls{
+  max-width:1200px;
+  margin:auto;
+  padding:0 24px 45px;
+}
+
+.controls-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  margin-bottom:25px;
+}
+
+.search-box{
+  position:relative;
+  flex:1;
+  max-width:390px;
+}
+
+.search-box input{
+  width:100%;
+  padding:15px 20px 15px 45px;
+  border:1px solid var(--line);
+  background:var(--paper);
+  border-radius:50px;
+  outline:none;
+  color:var(--ink);
+  transition:.25s ease;
+}
+
+.search-box input:focus{
+  border-color:var(--sage);
+  box-shadow:0 0 0 4px rgba(169,185,165,.16);
+}
+
+.search-icon{
+  position:absolute;
+  left:18px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--muted);
+}
+
+.sort-select{
+  border:1px solid var(--line);
+  background:var(--paper);
+  padding:14px 18px;
+  border-radius:50px;
+  color:var(--ink);
+  outline:none;
+}
+
+.filters{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.filter-btn{
+  border:1px solid var(--line);
+  background:transparent;
+  padding:10px 18px;
+  border-radius:50px;
+  color:var(--muted);
+  transition:.25s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active{
+  background:var(--ink);
+  border-color:var(--ink);
+  color:white;
+}
+
+/* Products */
+
+.products-wrap{
+  max-width:1200px;
+  margin:auto;
+  padding:0 24px 100px;
+}
+
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:22px;
+}
+
+.product-card{
+  position:relative;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:22px;
+  overflow:hidden;
+  transition:.35s ease;
+}
+
+.product-card:hover{
+  transform:translateY(-7px);
+  box-shadow:var(--shadow);
+}
+
+.product-image{
+  height:330px;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Artistic product backgrounds */
+
+.product-image.saree{
+  background:
+    radial-gradient(circle at 30% 30%,#d7e2cf 0 16%,transparent 17%),
+    radial-gradient(circle at 75% 65%,#d28d72 0 12%,transparent 13%),
+    linear-gradient(135deg,#eef0df,#b9c9b3);
+}
+
+.product-image.dress{
+  background:
+    radial-gradient(circle at 75% 25%,#dfb99f 0 18%,transparent 19%),
+    radial-gradient(circle at 25% 75%,#a9b9a5 0 16%,transparent 17%),
+    linear-gradient(135deg,#ead7c8,#f3e9dc);
+}
+
+.product-image.shawl{
+  background:
+    radial-gradient(circle at 30% 65%,#d7c29c 0 17%,transparent 18%),
+    radial-gradient(circle at 75% 30%,#9cad99 0 15%,transparent 16%),
+    linear-gradient(135deg,#dfe3d8,#b8c6bb);
+}
+
+.product-image.basket{
+  background:
+    radial-gradient(circle at 50% 30%,#d89a72 0 19%,transparent 20%),
+    radial-gradient(circle at 25% 70%,#b7c4a5 0 14%,transparent 15%),
+    linear-gradient(135deg,#eadbc1,#d0b68c);
+}
+
+.product-art{
+  width:58%;
+  height:75%;
+  border-radius:45% 45% 18% 18%;
+  background:rgba(255,255,255,.45);
+  transform:rotate(-5deg);
+  border:2px solid rgba(255,255,255,.6);
+  box-shadow:0 20px 35px rgba(50,60,50,.12);
+}
+
+.product-image.shawl .product-art{
+  width:75%;
+  height:50%;
+  transform:rotate(-8deg);
+  border-radius:8px;
+}
+
+.product-image.basket .product-art{
+  width:60%;
+  height:45%;
+  border-radius:12px 12px 35% 35%;
+  transform:rotate(0);
+}
+
+.product-badge{
+  position:absolute;
+  left:15px;
+  top:15px;
+  padding:7px 11px;
+  border-radius:30px;
+  background:rgba(255,255,255,.85);
+  font-size:11px;
+  letter-spacing:.04em;
+}
+
+.favorite{
+  position:absolute;
+  right:15px;
+  top:15px;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.7);
+  background:rgba(255,255,255,.8);
+  display:grid;
+  place-items:center;
+  font-size:18px;
+  transition:.25s ease;
+}
+
+.favorite.active{
+  background:var(--clay);
+  color:white;
+  border-color:var(--clay);
+}
+
+.product-info{
+  padding:20px;
+}
+
+.product-category{
+  color:var(--sage-dark);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  margin-bottom:7px;
+}
+
+.product-name{
+  font-family:Georgia,serif;
+  font-size:21px;
+  font-weight:400;
+  margin-bottom:6px;
+}
+
+.product-description{
+  color:var(--muted);
+  font-size:13px;
+  min-height:42px;
+}
+
+.product-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-top:18px;
+}
+
+.price{
+  font-weight:700;
+  font-size:16px;
+}
+
+.add-btn{
+  border:0;
+  background:var(--ink);
+  color:white;
+  padding:10px 14px;
+  border-radius:50px;
+  font-size:12px;
+  transition:.25s ease;
+}
+
+.add-btn:hover{
+  background:var(--clay);
+  transform:translateY(-2px);
+}
+
+/* Empty state */
+
+.empty{
+  display:none;
+  text-align:center;
+  padding:70px 20px;
+  color:var(--muted);
+}
+
+.empty h3{
+  font-family:Georgia,serif;
+  font-size:30px;
+  font-weight:400;
+  color:var(--ink);
+  margin-bottom:8px;
+}
+
+/* Cart drawer */
+
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(28,38,32,.35);
+  z-index:1999;
+  opacity:0;
+  visibility:hidden;
+  transition:.3s ease;
+}
+
+.overlay.show{
+  opacity:1;
+  visibility:visible;
+}
+
+.cart-drawer{
+  position:fixed;
+  right:-430px;
+  top:0;
+  width:min(430px,100%);
+  height:100vh;
+  background:var(--paper);
+  z-index:2000;
+  transition:.4s ease;
+  display:flex;
+  flex-direction:column;
+  box-shadow:-20px 0 50px rgba(0,0,0,.12);
+}
+
+.cart-drawer.open{
+  right:0;
+}
+
+.cart-head{
+  padding:25px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.cart-head h2{
+  font-family:Georgia,serif;
+  font-weight:400;
+}
+
+.close-cart{
+  border:0;
+  background:none;
+  font-size:25px;
+}
+
+.cart-items{
+  flex:1;
+  overflow:auto;
+  padding:20px;
+}
+
+.cart-item{
+  display:flex;
+  gap:13px;
+  padding:15px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.cart-thumb{
+  width:72px;
+  height:82px;
+  border-radius:12px;
+  flex-shrink:0;
+}
+
+.cart-item-info{
+  flex:1;
+}
+
+.cart-item-name{
+  font-family:Georgia,serif;
+  margin-bottom:4px;
+}
+
+.cart-item-price{
+  font-size:13px;
+  color:var(--muted);
+}
+
+.qty-controls{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-top:8px;
+}
+
+.qty-controls button{
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  border:1px solid var(--line);
+  background:white;
+}
+
+.remove-item{
+  border:0;
+  background:none;
+  color:#a15f52;
+  font-size:12px;
+  margin-top:7px;
+}
+
+.cart-foot{
+  border-top:1px solid var(--line);
+  padding:22px;
+}
+
+.total-row{
+  display:flex;
+  justify-content:space-between;
+  font-size:18px;
+  margin-bottom:15px;
+}
+
+.checkout{
+  width:100%;
+  padding:15px;
+  border:0;
+  background:var(--ink);
+  color:white;
+  border-radius:50px;
+}
+
+.empty-cart{
+  text-align:center;
+  color:var(--muted);
+  padding:60px 10px;
+}
+
+/* Toast */
+
+.toast{
+  position:fixed;
+  bottom:25px;
+  left:50%;
+  transform:translate(-50%,20px);
+  background:var(--ink);
+  color:white;
+  padding:12px 18px;
+  border-radius:50px;
+  font-size:13px;
+  opacity:0;
+  pointer-events:none;
+  z-index:3000;
+  transition:.3s ease;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+/* Footer */
+
+footer{
+  background:var(--ink);
+  color:white;
+  padding:60px 24px 30px;
+}
+
+.footer-inner{
+  max-width:1200px;
+  margin:auto;
+}
+
+.footer-top{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:40px;
+  padding-bottom:45px;
+}
+
+.footer-brand h2{
+  letter-spacing:.18em;
+  font-size:25px;
+  margin-bottom:12px;
+}
+
+.footer-brand p{
+  max-width:350px;
+  color:#bdc6bf;
+  font-size:14px;
+}
+
+.footer-col h4{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  margin-bottom:15px;
+}
+
+.footer-col a,
+.footer-col span{
+  display:block;
+  color:#bdc6bf;
+  font-size:14px;
+  margin:8px 0;
+}
+
+.footer-bottom{
+  padding-top:25px;
+  border-top:1px solid rgba(255,255,255,.13);
+  color:#9fa9a1;
+  font-size:12px;
+  display:flex;
+  justify-content:space-between;
+}
+
+/* Mobile */
+
+@media(max-width:950px){
+  .products-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .footer-top{
+    grid-template-columns:2fr 1fr 1fr;
+  }
+
+  .footer-brand{
+    grid-column:1/-1;
+  }
+
+  .nav-links{
+    display:none;
+  }
+
+  .mobile-menu-btn{
+    display:grid;
+  }
+}
+
+@media(max-width:600px){
+  .nav{
+    height:66px;
+    padding:0 16px;
+  }
+
+  .logo{
+    font-size:21px;
+  }
+
+  .shop-hero{
+    padding:65px 20px 40px;
+  }
+
+  .shop-hero h1{
+    font-size:52px;
+  }
+
+  .controls-top{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .search-box{
+    max-width:none;
+  }
+
+  .sort-select{
+    width:100%;
+  }
+
+  .products-wrap,
+  .shop-controls{
+    padding-left:15px;
+    padding-right:15px;
+  }
+
+  .products-grid{
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+
+  .product-image{
+    height:240px;
+  }
+
+  .product-info{
+    padding:14px;
+  }
+
+  .product-name{
+    font-size:17px;
+  }
+
+  .product-description{
+    font-size:12px;
+  }
+
+  .product-bottom{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .add-btn{
+    width:100%;
+  }
+
+  .footer-top{
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+  }
+
+  .footer-brand{
+    grid-column:1/-1;
+  }
+
+  .footer-bottom{
+    flex-direction:column;
+    gap:8px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="announcement">
+  Free U.S. shipping on orders over $150 · Handmade with care
+</div>
+
+<header>
+  <div class="nav">
+
+    <a href="index.html" class="logo">HRIPIN</a>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="#">Collections</a>
+      <a href="#">Our Story</a>
+      <a href="#">Gallery</a>
+      <a href="#">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="icon-btn mobile-menu-btn" onclick="toggleMobileMenu()">
+        ☰
+      </button>
+
+      <button class="icon-btn" onclick="openCart()" aria-label="Shopping cart">
+        🛒
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<!-- Mobile menu -->
+
+<div id="mobileMenu" style="
+position:fixed;
+top:76px;
+left:0;
+right:0;
+background:#fffdf8;
+z-index:999;
+padding:20px;
+border-bottom:1px solid #e4e5dc;
+display:none;
+">
+
+  <a href="index.html" style="display:block;padding:12px 0;">Home</a>
+  <a href="shop.html" style="display:block;padding:12px 0;">Shop</a>
+  <a href="#" style="display:block;padding:12px 0;">Collections</a>
+  <a href="#" style="display:block;padding:12px 0;">Our Story</a>
+  <a href="#" style="display:block;padding:12px 0;">Gallery</a>
+  <a href="#" style="display:block;padding:12px 0;">Contact</a>
+
+</div>
+
+<!-- Shop Hero -->
+
+<section class="shop-hero">
+
+  <div class="eyebrow">The HRIPIN Shop</div>
+
+  <h1>Made slowly.<br>Meant to last.</h1>
+
+  <p>
+    Discover hand-painted clothing and handcrafted pieces,
+    made with simple materials, thoughtful details, and a little bit of joy.
+  </p>
+
+</section>
+
+<!-- Controls -->
+
+<section class="shop-controls">
+
+  <div class="controls-top">
+
+    <div class="search-box">
+      <span class="search-icon">⌕</span>
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search handmade pieces..."
+        oninput="filterProducts()"
+      >
+    </div>
+
+    <select class="sort-select" id="sortSelect" onchange="sortProducts()">
+      <option value="featured">Sort: Featured</option>
+      <option value="low">Price: Low to High</option>
+      <option value="high">Price: High to Low</option>
+      <option value="az">Name: A to Z</option>
+    </select>
+
+  </div>
+
+  <div class="filters">
+
+    <button
+      class="filter-btn active"
+      data-filter="all"
+      onclick="setFilter('all',this)"
+    >
+      All
+    </button>
+
+    <button
+      class="filter-btn"
+      data-filter="saree"
+      onclick="setFilter('saree',this)"
+    >
+      Sarees
+    </button>
+
+    <button
+      class="filter-btn"
+      data-filter="dress"
+      onclick="setFilter('dress',this)"
+    >
+      Dresses
+    </button>
+
+    <button
+      class="filter-btn"
+      data-filter="shawl"
+      onclick="setFilter('shawl',this)"
+    >
+      Shawls
+    </button>
+
+    <button
+      class="filter-btn"
+      data-filter="home"
+      onclick="setFilter('home',this)"
+    >
+      Home & Living
+    </button>
+
+  </div>
+
+</section>
+
+<!-- Products -->
+
+<main class="products-wrap">
+
+  <div class="products-grid" id="productsGrid">
+
+    <!-- Saree -->
+
+    <article
+      class="product-card"
+      data-category="saree"
+      data-name="Meadow Bloom Saree"
+      data-price="129"
+    >
+
+      <div class="product-image saree">
+
+        <span class="product-badge">Hand-painted</span>
+
+        <button
+          class="favorite"
+          onclick="toggleFavorite(this)"
+          aria-label="Add to favorites"
+        >
+          ♡
+        </button>
+
+        <div class="product-art"></div>
+
+      </div>
+
+      <div class="product-info">
+
+        <div class="product-category">
+          Saree · Silk Blend
+        </div>
+
+        <h2 class="product-name">
+          Meadow Bloom Saree
+        </h2>
+
+        <p class="product-description">
+          A soft silk-blend saree inspired by quiet gardens and wildflowers.
+        </p>
+
+        <div class="product-bottom">
+
+          <span class="price">$129</span>
+
+          <button
+            class="add-btn"
+            onclick="addToCart('Meadow Bloom Saree',129,'saree')"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <!-- Dress -->
+
+    <article
+      class="product-card"
+      data-category="dress"
+      data-name="Terracotta Garden Dress"
+      data-price="98"
+    >
+
+      <div class="product-image dress">
+
+        <span class="product-badge">Hand-painted</span>
+
+        <button
+          class="favorite"
+          onclick="toggleFavorite(this)"
+          aria-label="Add to favorites"
+        >
+          ♡
+        </button>
+
+        <div class="product-art"></div>
+
+      </div>
+
+      <div class="product-info">
+
+        <div class="product-category">
+          Dress · Cotton
+        </div>
+
+        <h2 class="product-name">
+          Terracotta Garden Dress
+        </h2>
+
+        <p class="product-description">
+          Easy cotton layers with playful botanical hand-painted details.
+        </p>
+
+        <div class="product-bottom">
+
+          <span class="price">$98</span>
+
+          <button
+            class="add-btn"
+            onclick="addToCart('Terracotta Garden Dress',98,'dress')"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <!-- Shawl -->
+
+    <article
+      class="product-card"
+      data-category="shawl"
+      data-name="Quiet Morning Shawl"
+      data-price="76"
+    >
+
+      <div class="product-image shawl">
+
+        <span class="product-badge">Hand-painted</span>
+
+        <button
+          class="favorite"
+          onclick="toggleFavorite(this)"
+          aria-label="Add to favorites"
+        >
+          ♡
+        </button>
+
+        <div class="product-art"></div>
+
+      </div>
+
+      <div class="product-info">
+
+        <div class="product-category">
+          Shawl · Wool
+        </div>
+
+        <h2 class="product-name">
+          Quiet Morning Shawl
+        </h2>
+
+        <p class="product-description">
+          A soft wool layer made for cool mornings and slow afternoons.
+        </p>
+
+        <div class="product-bottom">
+
+          <span class="price">$76</span>
+
+          <button
+            class="add-btn"
+            onclick="addToCart('Quiet Morning Shawl',76,'shawl')"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <!-- Basket -->
+
+    <article
+      class="product-card"
+      data-category="home"
+      data-name="Sunset Jute Basket"
+      data-price="44"
+    >
+
+      <div class="product-image basket">
+
+        <span class="product-badge">Handwoven</span>
+
+        <button
+          class="favorite"
+          onclick="toggleFavorite(this)"
+          aria-label="Add to favorites"
+        >
+          ♡
+        </button>
+
+        <div class="product-art"></div>
+
+      </div>
+
+      <div class="product-info">
+
+        <div class="product-category">
+          Home · Natural Jute
+        </div>
+
+        <h2 class="product-name">
+          Sunset Jute Basket
+        </h2>
+
+        <p class="product-description">
+          A naturally woven jute basket for adding warmth to everyday spaces.
+        </p>
+
+        <div class="product-bottom">
+
+          <span class="price">$44</span>
+
+          <button
+            class="add-btn"
+            onclick="addToCart('Sunset Jute Basket',44,'basket')"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <!-- Extra product 1 -->
+
+    <article
+      class="product-card"
+      data-category="saree"
+      data-name="Wildflower Silk Saree"
+      data-price="145"
+    >
+
+      <div class="product-image saree">
+
+        <span class="product-badge">New</span>
+
+        <button
+          class="favorite"
+          onclick="toggleFavorite(this)"
+        >
+          ♡
+        </button>
+
+        <div class="product-art"></div>
+
+      </div>
+
+      <div class="product-info">
+
+        <div class="product-category">
+          Saree · Silk
+        </div>
+
+        <h2 class="product-name">
+          Wildflower Silk Saree
+        </h2>
+
+        <p class="product-description">
+          A flowing silk saree decorated with delicate hand-painted florals.
+        </p>
+
+        <div class="product-bottom">
+
+          <span class="price">$145</span>
+
+          <button
+            class="add-btn"
+            onclick="addToCart('Wildflower Silk Saree',145,'saree')"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <!-- Extra product 2 -->
+
+    <article
+      class="product-card"
+      data-category="dress"
+      data-name="Morning Leaf Dress"
+      data-price="105"
+    >
+
+      <div class="product-image dress">
+
+        <span class="product-badge">New</span>
+
+        <button
+          class="favorite"
+          onclick="toggleFavorite(this)"
+        >
+          ♡
+        </button>
+
+        <div class="product-art"></div>
+
+      </div>
+
+      <div class="product-info">
+
+        <div class="product-category">
+          Dress · Cotton
+        </div>
+
+        <h2 class="product-name">
+          Morning Leaf Dress
+        </h2>
+
+        <p class="product-description">
+          Comfortable cotton with soft leafy artwork inspired by nature.
+        </p>
+
+        <div class="product-bottom">
+
+          <span class="price">$105</span>
+
+          <button
+            class="add-btn"
+            onclick="addToCart('Morning Leaf Dress',105,'dress')"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <!-- Extra product 3 -->
+
+    <article
+      class="product-card"
+      data-category="shawl"
+      data-name="Garden Breeze Shawl"
+      data-price="82"
+    >
+
+      <div class="product-image shawl">
+
+        <span class="product-badge">Hand-painted</span>
+
+        <button
+          class="favorite"
+          onclick="toggleFavorite(this)"
+        >
+          ♡
+        </button>
+
+        <div class="product-art"></div>
+
+      </div>
+
+      <div class="product-info">
+
+        <div class="product-category">
+          Shawl · Wool
+        </div>
+
+        <h2 class="product-name">
+          Garden Breeze Shawl
+        </h2>
+
+        <p class="product-description">
+          Lightweight warmth with an organic hand-painted botanical pattern.
+        </p>
+
+        <div class="product-bottom">
+
+          <span class="price">$82</span>
+
+          <button
+            class="add-btn"
+            onclick="addToCart('Garden Breeze Shawl',82,'shawl')"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <!-- Extra product 4 -->
+
+    <article
+      class="product-card"
+      data-category="home"
+      data-name="Little Sun Jute Tote"
+      data-price="38"
+    >
+
+      <div class="product-image basket">
+
+        <span class="product-badge">Handwoven</span>
+
+        <button
+          class="favorite"
+          onclick="toggleFavorite(this)"
+        >
+          ♡
+        </button>
+
+        <div class="product-art"></div>
+
+      </div>
+
+      <div class="product-info">
+
+        <div class="product-category">
+          Home · Natural Jute
+        </div>
+
+        <h2 class="product-name">
+          Little Sun Jute Tote
+        </h2>
+
+        <p class="product-description">
+          A simple everyday woven tote made from natural jute fibers.
+        </p>
+
+        <div class="product-bottom">
+
+          <span class="price">$38</span>
+
+          <button
+            class="add-btn"
+            onclick="addToCart('Little Sun Jute Tote',38,'basket')"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </article>
+
+  </div>
+
+  <div class="empty" id="emptyState">
+    <h3>No little treasures found.</h3>
+    <p>Try another search or choose a different collection.</p>
+  </div>
+
+</main>
+
+<!-- Cart -->
+
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+
+<aside class="cart-drawer" id="cartDrawer">
+
+  <div class="cart-head">
+
+    <h2>Your Cart</h2>
+
+    <button class="close-cart" onclick="closeCart()">
+      ×
+    </button>
+
+  </div>
+
+  <div class="cart-items" id="cartItems"></div>
+
+  <div class="cart-foot">
+
+    <div class="total-row">
+      <span>Total</span>
+      <strong id="cartTotal">$0</strong>
+    </div>
+
+    <button class="checkout" onclick="checkout()">
+      Continue to Checkout
+    </button>
+
+  </div>
+
+</aside>
+
+<div class="toast" id="toast">
+  Added to your cart
+</div>
+
+<!-- Footer -->
+
+<footer>
+
+  <div class="footer-inner">
+
+    <div class="footer-top">
+
+      <div class="footer-brand">
+
+        <h2>HRIPIN</h2>
+
+        <p>
+          Small pieces of handmade joy, created slowly and thoughtfully
+          for everyday life.
+        </p>
+
+      </div>
+
+      <div class="footer-col">
+
+        <h4>Explore</h4>
+
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <span>Collections</span>
+        <span>Our Story</span>
+
+      </div>
+
+      <div class="footer-col">
+
+        <h4>Help</h4>
+
+        <span>Shipping</span>
+        <span>Returns</span>
+        <span>Contact</span>
+
+      </div>
+
+      <div class="footer-col">
+
+        <h4>Follow</h4>
+
+        <span>Instagram</span>
+        <span>Facebook</span>
+        <span>Pinterest</span>
+
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+      <span>© 2026 HRIPIN. All rights reserved.</span>
+
+      <span>Made with care.</span>
+
+    </div>
+
+  </div>
+
+</footer>
+
+<script>
+
+/* -------------------------
+   Product filtering
+------------------------- */
+
+let currentFilter = "all";
+
+function setFilter(filter, button){
+
+  currentFilter = filter;
+
+  document.querySelectorAll(".filter-btn").forEach(btn=>{
+    btn.classList.remove("active");
+  });
+
+  button.classList.add("active");
+
+  filterProducts();
+}
+
+
+/* -------------------------
+   Search + Filter
+------------------------- */
+
+function filterProducts(){
+
+  const search =
+    document
+      .getElementById("searchInput")
+      .value
+      .toLowerCase()
+      .trim();
+
+  const cards =
+    [...document.querySelectorAll(".product-card")];
+
+  let visible = 0;
+
+  cards.forEach(card=>{
+
+    const name =
+      card.dataset.name.toLowerCase();
+
+    const category =
+      card.dataset.category;
+
+    const matchesSearch =
+      name.includes(search);
+
+    const matchesFilter =
+      currentFilter === "all" ||
+      category === currentFilter;
+
+    if(matchesSearch && matchesFilter){
+
+      card.style.display = "";
+
+      visible++;
+
+    }else{
+
+      card.style.display = "none";
+
+    }
+
+  });
+
+  document.getElementById("emptyState").style.display =
+    visible === 0 ? "block" : "none";
+}
+
+
+/* -------------------------
+   Sorting
+------------------------- */
+
+function sortProducts(){
+
+  const value =
+    document.getElementById("sortSelect").value;
+
+  const grid =
+    document.getElementById("productsGrid");
+
+  const cards =
+    [...grid.querySelectorAll(".product-card")];
+
+  if(value === "low"){
+
+    cards.sort((a,b)=>
+      Number(a.dataset.price) -
+      Number(b.dataset.price)
+    );
+
+  }
+
+  if(value === "high"){
+
+    cards.sort((a,b)=>
+      Number(b.dataset.price) -
+      Number(a.dataset.price)
+    );
+
+  }
+
+  if(value === "az"){
+
+    cards.sort((a,b)=>
+      a.dataset.name.localeCompare(b.dataset.name)
+    );
+
+  }
+
+  cards.forEach(card=>grid.appendChild(card));
+
+  filterProducts();
+}
+
+
+/* -------------------------
+   Favorites
+------------------------- */
+
+function toggleFavorite(button){
+
+  button.classList.toggle("active");
+
+  button.innerHTML =
+    button.classList.contains("active")
+      ? "♥"
+      : "♡";
+
+}
+
+
+/* -------------------------
+   Cart
+------------------------- */
+
+let cart =
+  JSON.parse(localStorage.getItem("hripinCart")) || [];
+
+function saveCart(){
+
+  localStorage.setItem(
+    "hripinCart",
+    JSON.stringify(cart)
+  );
+
+}
+
+function addToCart(name,price,type){
+
+  const existing =
+    cart.find(item=>item.name === name);
+
+  if(existing){
+
+    existing.quantity++;
+
+  }else{
+
+    cart.push({
+      name,
+      price,
+      type,
+      quantity:1
+    });
+
+  }
+
+  saveCart();
+
+  updateCart();
+
+  showToast(name + " added to cart");
+
+}
+
+
+function changeQuantity(index,change){
+
+  cart[index].quantity += change;
+
+  if(cart[index].quantity <= 0){
+
+    cart.splice(index,1);
+
+  }
+
+  saveCart();
+
+  updateCart();
+
+}
+
+
+function removeItem(index){
+
+  cart.splice(index,1);
+
+  saveCart();
+
+  updateCart();
+
+}
+
+
+function updateCart(){
+
+  const items =
+    document.getElementById("cartItems");
+
+  const count =
+    document.getElementById("cartCount");
+
+  const totalElement =
+    document.getElementById("cartTotal");
+
+  let total = 0;
+  let countTotal = 0;
+
+  if(cart.length === 0){
+
+    items.innerHTML = `
+      <div class="empty-cart">
+        Your cart is feeling a little empty.<br>
+        Add something handmade.
+      </div>
+    `;
+
+  }else{
+
+    items.innerHTML = "";
+
+    cart.forEach((item,index)=>{
+
+      total +=
+        item.price * item.quantity;
+
+      countTotal +=
+        item.quantity;
+
+      const div =
+        document.createElement("div");
+
+      div.className = "cart-item";
+
+      div.innerHTML = `
+
+        <div
+          class="cart-thumb ${item.type}"
+          style="
+            background:
+            linear-gradient(135deg,#e8eadb,#b9c8b4);
+          "
+        ></div>
+
+        <div class="cart-item-info">
+
+          <div class="cart-item-name">
+            ${item.name}
+          </div>
+
+          <div class="cart-item-price">
+            $${item.price}
+          </div>
+
+          <div class="qty-controls">
+
+            <button onclick="changeQuantity(${index},-1)">
+              −
+            </button>
+
+            <span>
+              ${item.quantity}
+            </span>
+
+            <button onclick="changeQuantity(${index},1)">
+              +
+            </button>
+
+          </div>
+
+          <button
+            class="remove-item"
+            onclick="removeItem(${index})"
+          >
+            Remove
+          </button>
+
+        </div>
+      `;
+
+      items.appendChild(div);
+
+    });
+
+  }
+
+  count.textContent = countTotal;
+
+  totalElement.textContent =
+    "$" + total.toFixed(2);
+
+}
+
+
+/* -------------------------
+   Cart drawer
+------------------------- */
+
+function openCart(){
+
+  document
+    .getElementById("cartDrawer")
+    .classList.add("open");
+
+  document
+    .getElementById("overlay")
+    .classList.add("show");
+
+}
+
+
+function closeCart(){
+
+  document
+    .getElementById("cartDrawer")
+    .classList.remove("open");
+
+  document
+    .getElementById("overlay")
+    .classList.remove("show");
+
+}
+
+
+/* -------------------------
+   Toast
+------------------------- */
+
+let toastTimer;
+
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer =
+    setTimeout(()=>{
+      toast.classList.remove("show");
+    },2200);
+
+}
+
+
+/* -------------------------
+   Checkout placeholder
+------------------------- */
+
+function checkout(){
+
+  if(cart.length === 0){
+
+    showToast("Your cart is empty.");
+
+    return;
+
+  }
+
+  showToast(
+    "Checkout will be connected soon."
+  );
+
+}
+
+
+/* -------------------------
+   Mobile menu
+------------------------- */
+
+function toggleMobileMenu(){
+
+  const menu =
+    document.getElementById("mobileMenu");
+
+  menu.style.display =
+    menu.style.display === "block"
+      ? "none"
+      : "block";
+
+}
+
+
+/* -------------------------
+   Escape key
+------------------------- */
+
+document.addEventListener("keydown",event=>{
+
+  if(event.key === "Escape"){
+
+    closeCart();
+
+    document
+      .getElementById("mobileMenu")
+      .style.display = "none";
+
+  }
+
+});
+
+
+/* -------------------------
+   Initial load
+------------------------- */
+
+updateCart();
+
+</script>
+
+</body>
+</html>

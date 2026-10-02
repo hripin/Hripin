@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Contact — HRIPIN</title>
+
+  <style>
+    :root{
+      --cream:#f8f5ed;
+      --paper:#fffdf8;
+      --ink:#26342d;
+      --muted:#718078;
+      --sage:#a9b9a5;
+      --sage-dark:#5f7565;
+      --clay:#c98568;
+      --line:#e4e5dc;
+      --shadow:0 14px 40px rgba(38,52,45,.08);
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:var(--cream);
+      color:var(--ink);
+      font-family:Arial, Helvetica, sans-serif;
+      line-height:1.6;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input,
+    textarea{
+      font:inherit;
+    }
+
+    /* HEADER */
+    .announcement{
+      background:var(--sage-dark);
+      color:white;
+      text-align:center;
+      padding:9px 15px;
+      font-size:12px;
+      letter-spacing:.4px;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(248,245,237,.94);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(228,229,220,.8);
+    }
+
+    .nav{
+      max-width:1180px;
+      margin:auto;
+      min-height:76px;
+      padding:0 24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:25px;
+    }
+
+    .logo{
+      font-size:24px;
+      font-weight:800;
+      letter-spacing:5px;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:28px;
+      font-size:14px;
+    }
+
+    .nav-links a{
+      position:relative;
+      color:var(--ink);
+    }
+
+    .nav-links a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-5px;
+      width:0;
+      height:1px;
+      background:var(--clay);
+      transition:.3s;
+    }
+
+    .nav-links a:hover::after{
+      width:100%;
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .icon-btn{
+      width:40px;
+      height:40px;
+      border:1px solid var(--line);
+      background:var(--paper);
+      border-radius:50%;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--ink);
+      transition:.25s;
+    }
+
+    .icon-btn:hover{
+      transform:translateY(-2px);
+      border-color:var(--sage);
+    }
+
+    .menu-btn{
+      display:none;
+    }
+
+    /* HERO */
+    .hero{
+      max-width:1180px;
+      margin:auto;
+      padding:95px 24px 80px;
+      text-align:center;
+    }
+
+    .eyebrow{
+      display:inline-block;
+      margin-bottom:18px;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:2.5px;
+      color:var(--sage-dark);
+      font-weight:700;
+    }
+
+    .hero h1{
+      max-width:800px;
+      margin:auto;
+      font-family:Georgia, serif;
+      font-size:clamp(46px,7vw,78px);
+      line-height:1.02;
+      font-weight:400;
+      letter-spacing:-2px;
+    }
+
+    .hero p{
+      max-width:620px;
+      margin:25px auto 0;
+      color:var(--muted);
+      font-size:17px;
+    }
+
+    /* CONTACT AREA */
+    .contact-section{
+      max-width:1180px;
+      margin:0 auto;
+      padding:20px 24px 100px;
+    }
+
+    .contact-grid{
+      display:grid;
+      grid-template-columns:.85fr 1.15fr;
+      gap:30px;
+      align-items:stretch;
+    }
+
+    /* INFO CARD */
+    .info-card{
+      background:var(--sage);
+      border-radius:30px;
+      padding:42px;
+      position:relative;
+      overflow:hidden;
+      min-height:580px;
+    }
+
+    .info-card::before{
+      content:"";
+      position:absolute;
+      width:190px;
+      height:190px;
+      border-radius:50%;
+      background:rgba(255,255,255,.16);
+      right:-65px;
+      top:-65px;
+    }
+
+    .info-card::after{
+      content:"";
+      position:absolute;
+      width:130px;
+      height:130px;
+      border-radius:50%;
+      background:rgba(201,133,104,.18);
+      left:-45px;
+      bottom:-35px;
+    }
+
+    .info-card h2{
+      font-family:Georgia, serif;
+      font-size:42px;
+      line-height:1.1;
+      font-weight:400;
+      margin-bottom:18px;
+      position:relative;
+      z-index:2;
+    }
+
+    .info-card > p{
+      color:#53655a;
+      max-width:400px;
+      margin-bottom:38px;
+      position:relative;
+      z-index:2;
+    }
+
+    .contact-item{
+      display:flex;
+      gap:17px;
+      align-items:flex-start;
+      margin:25px 0;
+      position:relative;
+      z-index:2;
+    }
+
+    .contact-icon{
+      width:45px;
+      height:45px;
+      border-radius:50%;
+      background:rgba(255,255,255,.55);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+      font-size:19px;
+    }
+
+    .contact-item h3{
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:1.2px;
+      margin-bottom:3px;
+    }
+
+    .contact-item p,
+    .contact-item a{
+      color:#53655a;
+      font-size:14px;
+    }
+
+    .contact-item a:hover{
+      color:var(--ink);
+    }
+
+    /* FORM */
+    .form-card{
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-radius:30px;
+      padding:42px;
+      box-shadow:var(--shadow);
+    }
+
+    .form-card h2{
+      font-family:Georgia, serif;
+      font-size:40px;
+      font-weight:400;
+      margin-bottom:10px;
+    }
+
+    .form-card .intro{
+      color:var(--muted);
+      margin-bottom:30px;
+      font-size:14px;
+    }
+
+    .form-row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+    }
+
+    .field{
+      margin-bottom:20px;
+    }
+
+    .field label{
+      display:block;
+      font-size:12px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      margin-bottom:8px;
+    }
+
+    .field input,
+    .field textarea,
+    .field select{
+      width:100%;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--ink);
+      border-radius:14px;
+      padding:14px 15px;
+      outline:none;
+      transition:.25s;
+    }
+
+    .field input,
+    .field select{
+      height:50px;
+    }
+
+    .field textarea{
+      min-height:145px;
+      resize:vertical;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus{
+      border-color:var(--sage-dark);
+      box-shadow:0 0 0 3px rgba(95,117,101,.08);
+    }
+
+    .submit-btn{
+      width:100%;
+      border:0;
+      background:var(--ink);
+      color:white;
+      padding:15px 22px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:700;
+      letter-spacing:.4px;
+      transition:.25s;
+    }
+
+    .submit-btn:hover{
+      background:var(--sage-dark);
+      transform:translateY(-2px);
+    }
+
+    .form-note{
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+      margin-top:13px;
+    }
+
+    /* LITTLE NOTE */
+    .little-note{
+      max-width:850px;
+      margin:0 auto;
+      padding:80px 24px 110px;
+      text-align:center;
+    }
+
+    .little-note .flower{
+      font-size:35px;
+      margin-bottom:20px;
+    }
+
+    .little-note h2{
+      font-family:Georgia, serif;
+      font-size:42px;
+      font-weight:400;
+      line-height:1.15;
+    }
+
+    .little-note p{
+      max-width:580px;
+      margin:18px auto 0;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    /* FOOTER */
+    footer{
+      background:var(--paper);
+      border-top:1px solid var(--line);
+    }
+
+    .footer-inner{
+      max-width:1180px;
+      margin:auto;
+      padding:60px 24px 30px;
+    }
+
+    .footer-grid{
+      display:grid;
+      grid-template-columns:1.5fr 1fr 1fr 1fr;
+      gap:35px;
+    }
+
+    .footer-brand .logo{
+      display:inline-block;
+      margin-bottom:15px;
+    }
+
+    .footer-brand p{
+      color:var(--muted);
+      font-size:14px;
+      max-width:300px;
+    }
+
+    .footer-col h4{
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:1.4px;
+      margin-bottom:15px;
+    }
+
+    .footer-col a{
+      display:block;
+      color:var(--muted);
+      font-size:14px;
+      margin:8px 0;
+      transition:.2s;
+    }
+
+    .footer-col a:hover{
+      color:var(--ink);
+    }
+
+    .footer-bottom{
+      border-top:1px solid var(--line);
+      margin-top:45px;
+      padding-top:20px;
+      display:flex;
+      justify-content:space-between;
+      gap:15px;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    /* TOAST */
+    .toast{
+      position:fixed;
+      right:20px;
+      bottom:20px;
+      background:var(--ink);
+      color:white;
+      padding:13px 18px;
+      border-radius:12px;
+      font-size:13px;
+      transform:translateY(100px);
+      opacity:0;
+      pointer-events:none;
+      transition:.3s;
+      z-index:3000;
+    }
+
+    .toast.show{
+      transform:translateY(0);
+      opacity:1;
+    }
+
+    /* MOBILE */
+    @media(max-width:850px){
+
+      .nav{
+        min-height:68px;
+      }
+
+      .nav-links{
+        position:absolute;
+        left:15px;
+        right:15px;
+        top:72px;
+        background:var(--paper);
+        border:1px solid var(--line);
+        border-radius:18px;
+        padding:18px;
+        display:none;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:0;
+        box-shadow:var(--shadow);
+      }
+
+      .nav-links.open{
+        display:flex;
+      }
+
+      .nav-links a{
+        width:100%;
+        padding:12px 5px;
+      }
+
+      .menu-btn{
+        display:flex;
+      }
+
+      .contact-grid{
+        grid-template-columns:1fr;
+      }
+
+      .info-card{
+        min-height:auto;
+      }
+
+      .footer-grid{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    @media(max-width:600px){
+
+      .nav{
+        padding:0 16px;
+      }
+
+      .logo{
+        font-size:21px;
+        letter-spacing:4px;
+      }
+
+      .nav-actions{
+        gap:7px;
+      }
+
+      .hero{
+        padding:70px 18px 55px;
+      }
+
+      .hero h1{
+        font-size:48px;
+      }
+
+      .hero p{
+        font-size:15px;
+      }
+
+      .contact-section{
+        padding:10px 16px 70px;
+      }
+
+      .info-card,
+      .form-card{
+        padding:28px 22px;
+        border-radius:24px;
+      }
+
+      .info-card h2,
+      .form-card h2{
+        font-size:34px;
+      }
+
+      .form-row{
+        grid-template-columns:1fr;
+        gap:0;
+      }
+
+      .little-note{
+        padding:60px 20px 80px;
+      }
+
+      .little-note h2{
+        font-size:35px;
+      }
+
+      .footer-inner{
+        padding:45px 20px 25px;
+      }
+
+      .footer-grid{
+        grid-template-columns:1fr 1fr;
+        gap:30px 20px;
+      }
+
+      .footer-brand{
+        grid-column:1/-1;
+      }
+
+      .footer-bottom{
+        flex-direction:column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="announcement">
+    Handmade slowly. Made with heart. 🌿
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav">
+
+      <a href="index.html" class="logo">HRIPIN</a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="collections.html">Collections</a>
+        <a href="aboutus.html">Our Story</a>
+        <a href="#">Gallery</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+
+        <button class="icon-btn" onclick="showMessage('Search coming soon!')" aria-label="Search">
+          ⌕
+        </button>
+
+        <button class="icon-btn menu-btn" onclick="toggleMenu()" aria-label="Menu">
+          ☰
+        </button>
+
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- HERO -->
+  <main>
+
+    <section class="hero">
+      <span class="eyebrow">Say Hello</span>
+
+      <h1>Let's make something lovely.</h1>
+
+      <p>
+        Have a question about an order, a handmade piece, or simply want to say hello?
+        We'd love to hear from you.
+      </p>
+    </section>
+
+
+    <!-- CONTACT -->
+    <section class="contact-section">
+
+      <div class="contact-grid">
+
+        <!-- INFORMATION -->
+        <div class="info-card">
+
+          <h2>Come say hello.</h2>
+
+          <p>
+            HRIPIN is a small handmade world, and every message means a lot to us.
+            Drop us a note and we'll get back to you as soon as we can.
+          </p>
+
+          <div class="contact-item">
+            <div class="contact-icon">✉</div>
+
+            <div>
+              <h3>Email</h3>
+              <a href="mailto:hello@hripin.com">
+                hello@hripin.com
+              </a>
+            </div>
+          </div>
+
+
+          <div class="contact-item">
+            <div class="contact-icon">♡</div>
+
+            <div>
+              <h3>Customer Care</h3>
+              <p>
+                Questions about orders, products or shipping?
+                We're happy to help.
+              </p>
+            </div>
+          </div>
+
+
+          <div class="contact-item">
+            <div class="contact-icon">✦</div>
+
+            <div>
+              <h3>Collaborations</h3>
+              <p>
+                Interested in working together?
+                Tell us a little about your idea.
+              </p>
+            </div>
+          </div>
+
+
+          <div class="contact-item">
+            <div class="contact-icon">☼</div>
+
+            <div>
+              <h3>Response Time</h3>
+              <p>
+                Usually within 1–2 business days.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- FORM -->
+        <div class="form-card">
+
+          <h2>Send us a note.</h2>
+
+          <p class="intro">
+            Fill out the little form below and we'll be in touch.
+          </p>
+
+          <form id="contactForm">
+
+            <div class="form-row">
+
+              <div class="field">
+                <label for="name">Your Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Your name"
+                  required
+                >
+              </div>
+
+              <div class="field">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="you@example.com"
+                  required
+                >
+              </div>
+
+            </div>
+
+
+            <div class="field">
+              <label for="subject">What can we help with?</label>
+
+              <select id="subject" name="subject">
+
+                <option value="">Choose a topic</option>
+                <option>Order question</option>
+                <option>Product question</option>
+                <option>Shipping question</option>
+                <option>Custom / handmade request</option>
+                <option>Collaboration</option>
+                <option>Something else</option>
+
+              </select>
+            </div>
+
+
+            <div class="field">
+
+              <label for="message">Your Message</label>
+
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Tell us what's on your mind..."
+                required
+              ></textarea>
+
+            </div>
+
+
+            <button type="submit" class="submit-btn">
+              Send Message →
+            </button>
+
+            <p class="form-note">
+              This form is currently a demo. Email connection can be added later.
+            </p>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- LITTLE NOTE -->
+    <section class="little-note">
+
+      <div class="flower">✿</div>
+
+      <h2>
+        Every little message<br>
+        makes our day.
+      </h2>
+
+      <p>
+        Whether you're looking for a special handmade piece,
+        have a question about your order, or simply discovered HRIPIN
+        and wanted to say hi — we're glad you're here.
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="footer-inner">
+
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+
+          <a href="index.html" class="logo">HRIPIN</a>
+
+          <p>
+            Little pieces of joy, made slowly and thoughtfully by hand.
+          </p>
+
+        </div>
+
+
+        <div class="footer-col">
+
+          <h4>Explore</h4>
+
+          <a href="shop.html">Shop</a>
+          <a href="collections.html">Collections</a>
+          <a href="aboutus.html">Our Story</a>
+          <a href="#">Gallery</a>
+
+        </div>
+
+
+        <div class="footer-col">
+
+          <h4>Help</h4>
+
+          <a href="contact.html">Contact</a>
+          <a href="#">Shipping</a>
+          <a href="#">Returns</a>
+          <a href="#">FAQ</a>
+
+        </div>
+
+
+        <div class="footer-col">
+
+          <h4>Follow</h4>
+
+          <a href="#">Instagram</a>
+          <a href="#">Pinterest</a>
+          <a href="#">Facebook</a>
+          <a href="#">TikTok</a>
+
+        </div>
+
+      </div>
+
+
+      <div class="footer-bottom">
+
+        <span>© 2026 HRIPIN. Made with care.</span>
+
+        <span>Handmade • Natural • Thoughtful</span>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <div class="toast" id="toast"></div>
+
+
+  <script>
+
+    /* MOBILE MENU */
+    function toggleMenu(){
+      document.getElementById("navLinks").classList.toggle("open");
+    }
+
+
+    /* TOAST */
+    function showMessage(message){
+
+      const toast = document.getElementById("toast");
+
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2500);
+    }
+
+
+    /* CONTACT FORM */
+    document.getElementById("contactForm").addEventListener("submit", function(e){
+
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+
+      if(!name){
+        showMessage("Please enter your name.");
+        return;
+      }
+
+      showMessage("Thank you, " + name + "! Your message is ready to be connected.");
+
+      this.reset();
+
+    });
+
+
+    /* CLOSE MOBILE MENU AFTER CLICK */
+    document.querySelectorAll(".nav-links a").forEach(link => {
+
+      link.addEventListener("click", () => {
+
+        document.getElementById("navLinks").classList.remove("open");
+
+      });
+
+    });
+
+  </script>
+
+</body>
+</html>
